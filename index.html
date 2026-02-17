@@ -1,80 +1,605 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Mon Site Informatique</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #0f172a;
-            color: white;
-            text-align: center;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevSpace — Informatique & Code</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        header {
-            padding: 60px 20px;
-        }
+    :root {
+      --bg: #050a0f;
+      --surface: #0d1821;
+      --border: #1a3a4a;
+      --accent: #00e5ff;
+      --accent2: #ff6b35;
+      --green: #39ff14;
+      --text: #cde8f0;
+      --muted: #4a7a8a;
+      --mono: 'Share Tech Mono', monospace;
+      --display: 'Syne', sans-serif;
+    }
 
-        h1 {
-            font-size: 3em;
-            color: #38bdf8;
-        }
+    html { scroll-behavior: smooth; }
 
-        p {
-            font-size: 1.2em;
-            color: #cbd5e1;
-        }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--display);
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
 
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 25px;
-            background-color: #38bdf8;
-            color: #0f172a;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+    /* GRID BACKGROUND */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        .btn:hover {
-            background-color: #0ea5e9;
-        }
+    /* SCANLINES */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
 
-        section {
-            padding: 40px 20px;
-        }
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(5,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
 
-        footer {
-            margin-top: 40px;
-            padding: 20px;
-            background-color: #1e293b;
-            font-size: 0.9em;
-            color: #94a3b8;
-        }
-    </style>
+    .logo {
+      font-family: var(--mono);
+      font-size: 1.2rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    .logo span { color: var(--accent2); }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    nav a:hover { color: var(--accent); }
+    nav a:hover::after { width: 100%; }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 3rem;
+      z-index: 2;
+    }
+
+    .hero-content {
+      max-width: 750px;
+      animation: fadeUp 1s ease both;
+    }
+
+    .badge {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--green);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .badge::before {
+      content: '';
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 .line1 { color: var(--text); }
+    h1 .line2 {
+      color: transparent;
+      -webkit-text-stroke: 1px var(--accent);
+      display: block;
+    }
+    h1 .accent-word { color: var(--accent); }
+
+    .hero p {
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      text-decoration: none;
+      border: 1px solid;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+      box-shadow: 0 0 20px rgba(0,229,255,0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* TERMINAL WIDGET */
+    .terminal {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 380px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 0 40px rgba(0,229,255,0.08), 0 20px 60px rgba(0,0,0,0.5);
+      animation: fadeLeft 1.2s ease both 0.3s;
+    }
+
+    .terminal-header {
+      background: var(--border);
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+
+    .terminal-title {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .terminal-body {
+      padding: 1.2rem;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      line-height: 2;
+      min-height: 220px;
+    }
+
+    .t-line { display: flex; gap: 0.5rem; }
+    .t-prompt { color: var(--green); }
+    .t-cmd { color: var(--text); }
+    .t-out { color: var(--muted); padding-left: 1rem; }
+    .t-out.hi { color: var(--accent); }
+
+    .cursor {
+      display: inline-block;
+      width: 8px; height: 14px;
+      background: var(--accent);
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+    }
+
+    /* STATS BAR */
+    .stats {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat {
+      padding: 2.5rem 3rem;
+      border-right: 1px solid var(--border);
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      font-family: var(--mono);
+    }
+
+    .stat-num span { color: var(--accent2); }
+
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-top: 0.5rem;
+    }
+
+    /* CARDS SECTION */
+    .section {
+      position: relative;
+      z-index: 2;
+      padding: 6rem 3rem;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent2);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+      max-width: 500px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5px;
+      border: 1.5px solid var(--border);
+    }
+
+    .card {
+      background: var(--surface);
+      padding: 2rem;
+      border: none;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s;
+    }
+
+    .card:hover { background: #111d27; }
+    .card:hover::before { transform: translateX(100%); }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .card p {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .card-tag {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 0.2rem 0.6rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* CODE SNIPPET SECTION */
+    .snippet-section {
+      position: relative;
+      z-index: 2;
+      padding: 4rem 3rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .code-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 2;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .code-block::after {
+      content: 'hello.py';
+      position: absolute;
+      top: 0.6rem; right: 1rem;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .kw { color: #ff79c6; }
+    .fn { color: var(--accent); }
+    .str { color: var(--green); }
+    .cm { color: var(--muted); }
+    .num { color: var(--accent2); }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeLeft {
+      from { opacity: 0; transform: translateY(-50%) translateX(40px); }
+      to { opacity: 1; transform: translateY(-50%) translateX(0); }
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 8px var(--green); }
+      50% { box-shadow: 0 0 16px var(--green), 0 0 30px var(--green); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .terminal { display: none; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .snippet-section { grid-template-columns: 1fr; }
+      nav ul { display: none; }
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-    <h1>Bienvenue dans le monde de l'informatique 🚀</h1>
-    <p>Développement web • Programmation • Technologie • Cybersécurité</p>
-    <a href="#" class="btn">Découvrir</a>
-</header>
+  <!-- NAV -->
+  <nav>
+    <div class="logo">&lt;<span>Dev</span>Space /&gt;</div>
+    <ul>
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#ressources">Ressources</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
-<section>
-    <h2>À propos</h2>
-    <p>
-        Ce site est mon premier projet en ligne.
-        J'apprends Git, GitHub et le développement web.
-    </p>
-</section>
+  <!-- HERO -->
+  <section class="hero" id="accueil">
+    <div class="hero-content">
+      <div class="badge">Système en ligne — v1.0.0</div>
+      <h1>
+        <span class="line1">Explore le monde</span>
+        <span class="line2">du <span class="accent-word" style="-webkit-text-stroke:0">code.</span></span>
+      </h1>
+      <p>// Un espace dédié à l'informatique, au développement web et aux technologies du futur. Apprends, crée, innove.</p>
+      <div class="cta-group">
+        <a href="#projets" class="btn btn-primary">Voir les projets</a>
+        <a href="#ressources" class="btn btn-secondary">Ressources</a>
+      </div>
+    </div>
 
-<footer>
-    © 2026 - Mon premier site informatique
-</footer>
+    <!-- TERMINAL -->
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span class="terminal-title">bash — terminal</span>
+      </div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="t-prompt">user@devspace:~$</span><span class="t-cmd"> whoami</span></div>
+        <div class="t-out hi">dev_en_herbe</div>
+        <div class="t-line"><span class="t-prompt">user@devspace:~$</span><span class="t-cmd"> ls projets/</span></div>
+        <div class="t-out">html_css/ javascript/ python/</div>
+        <div class="t-line"><span class="t-prompt">user@devspace:~$</span><span class="t-cmd"> git status</span></div>
+        <div class="t-out">On branch main</div>
+        <div class="t-out hi">nothing to commit, all good ✓</div>
+        <div class="t-line"><span class="t-prompt">user@devspace:~$</span><span class="t-cmd"> <span class="cursor"></span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat" style="animation-delay:0.1s">
+      <div class="stat-num">42<span>+</span></div>
+      <div class="stat-label">Projets réalisés</div>
+    </div>
+    <div class="stat" style="animation-delay:0.2s">
+      <div class="stat-num">10<span>k</span></div>
+      <div class="stat-label">Lignes de code</div>
+    </div>
+    <div class="stat" style="animation-delay:0.3s">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Envie d'apprendre</div>
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <section class="section" id="projets">
+    <div class="section-label">// Domaines</div>
+    <h2 class="section-title">Ce que j'explore</h2>
+    <div class="cards">
+      <div class="card">
+        <span class="card-icon">🌐</span>
+        <h3>Développement Web</h3>
+        <p>Création de sites et d'interfaces avec HTML, CSS et JavaScript. Du statique au dynamique.</p>
+        <span class="card-tag">HTML / CSS / JS</span>
+      </div>
+      <div class="card">
+        <span class="card-icon">🐍</span>
+        <h3>Python</h3>
+        <p>Scripts, automatisation, analyse de données et initiation à l'intelligence artificielle.</p>
+        <span class="card-tag">Python 3</span>
+      </div>
+      <div class="card">
+        <span class="card-icon">🗄️</span>
+        <h3>Bases de données</h3>
+        <p>Modélisation et requêtes SQL pour stocker et interroger des données structurées.</p>
+        <span class="card-tag">SQL</span>
+      </div>
+      <div class="card">
+        <span class="card-icon">🔧</span>
+        <h3>Outils Dev</h3>
+        <p>Utilisation de Git, GitHub, VS Code et des outils du développeur moderne.</p>
+        <span class="card-tag">Git / CLI</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CODE SNIPPET -->
+  <section class="snippet-section" id="ressources">
+    <div>
+      <div class="section-label">// Premier pas</div>
+      <h2 class="section-title">Le code, c'est de la logique et de la créativité.</h2>
+      <p style="font-family:var(--mono);font-size:0.85rem;color:var(--muted);line-height:1.8;max-width:400px">
+        Tout commence par un fichier, quelques lignes, et beaucoup de curiosité. Peu importe où tu en es, l'important c'est de commencer.
+      </p>
+    </div>
+    <div class="code-block">
+<span class="cm"># Mon premier programme Python</span>
+<span class="kw">def</span> <span class="fn">accueil</span>(nom):
+    message = <span class="str">f"Salut {nom}, bienvenue !"</span>
+    <span class="kw">return</span> message
+
+<span class="cm"># Appel de la fonction</span>
+nom = <span class="str">"Monde"</span>
+<span class="fn">print</span>(accueil(nom))
+
+<span class="cm"># Output :</span>
+<span class="cm"># → Salut Monde, bienvenue !</span>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <span>&lt;DevSpace /&gt; — Fait avec ❤️ et beaucoup de café</span>
+    <span>2025 — Hébergé sur GitHub Pages</span>
+  </footer>
 
 </body>
 </html>
