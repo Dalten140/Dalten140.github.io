@@ -266,10 +266,10 @@
 
     .cursor {
       display: inline-block;
-      width: 8px; height: 14px;
-      background: var(--accent);
-      animation: blink 1s step-end infinite;
       vertical-align: middle;
+      font-size: 1rem;
+      animation: blink 1s step-end infinite;
+      filter: drop-shadow(0 0 4px var(--accent));
     }
 
     /* STATS BAR */
@@ -518,7 +518,7 @@
         <div class="t-line"><span class="t-prompt">user@devspace:~$</span><span class="t-cmd"> git status</span></div>
         <div class="t-out">On branch main</div>
         <div class="t-out hi">nothing to commit, all good ✓</div>
-        <div class="t-line"><span class="t-prompt">user@devspace:~$</span><span class="t-cmd"> <span class="cursor"></span></span></div>
+        <div class="t-line"><span class="t-prompt">user@devspace:~$</span><span class="t-cmd"> <span class="cursor"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:var(--accent)"><path d="M4 0 L4 20 L8 16 L11 22 L13 21 L10 15 L15 15 Z"/></svg></span></span></div>
       </div>
     </div>
   </section>
