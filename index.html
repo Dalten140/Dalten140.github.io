@@ -472,13 +472,112 @@
       .snippet-section { grid-template-columns: 1fr; }
       nav ul { display: none; }
     }
+	
+	/* ── LOGO PC ANIMÉ ── */
+.logo-pc { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.pc-svg { width: 44px; height: 44px; overflow: visible; }
+
+.monitor-body { fill: #0d1821; stroke: #00e5ff; stroke-width: 1.5; filter: drop-shadow(0 0 4px rgba(0,229,255,0.5)); }
+.screen-bg { fill: #041520; animation: screenPulse 2s ease-in-out infinite; }
+.screen-lines { fill: url(#scanlines); opacity: 0.15; }
+.screen-cursor { fill: #00e5ff; animation: cursorBlink 1s step-end infinite; filter: drop-shadow(0 0 3px #00e5ff); }
+
+.code-line { fill: none; stroke-width: 1; stroke-linecap: round; stroke-dasharray: 30; stroke-dashoffset: 30; animation: codeType 3s ease-in-out infinite; }
+.code-line-1 { stroke: #39ff14; animation-delay: 0s; }
+.code-line-2 { stroke: #00e5ff; animation-delay: 0.4s; }
+.code-line-3 { stroke: #ff6b35; animation-delay: 0.8s; }
+
+.stand-neck { fill: #0d1821; stroke: #1a3a4a; stroke-width: 1; }
+.stand-base { fill: #0d1821; stroke: #00e5ff; stroke-width: 1.2; filter: drop-shadow(0 0 3px rgba(0,229,255,0.3)); }
+.power-led { fill: #39ff14; animation: ledPulse 2s ease-in-out infinite; filter: drop-shadow(0 0 3px #39ff14); }
+
+.corner-tl, .corner-br { fill: none; stroke: #ff6b35; stroke-width: 1.5; animation: cornerSpin 4s linear infinite; transform-origin: 22px 18px; }
+.corner-br { animation-direction: reverse; }
+
+.particle { fill: #00e5ff; animation: particleFloat 3s ease-in-out infinite; opacity: 0; }
+.p1 { animation-delay: 0s; }
+.p2 { animation-delay: 1s; }
+.p3 { animation-delay: 2s; }
+
+.logo-text { display: flex; flex-direction: column; line-height: 1; }
+.logo-brand { font-family: var(--mono); font-size: 1.1rem; letter-spacing: 0.08em; color: var(--accent); }
+.logo-brand .accent { color: var(--accent2); }
+.logo-sub { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.25em; color: var(--muted); text-transform: uppercase; margin-top: 2px; }
+
+@keyframes monitorFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-2.5px); }
+}
+@keyframes screenPulse {
+  0%, 100% { fill: #041520; }
+  50%       { fill: #071e30; }
+}
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+@keyframes codeType {
+  0%   { stroke-dashoffset: 30; opacity: 0; }
+  20%  { opacity: 1; stroke-dashoffset: 0; }
+  80%  { opacity: 1; stroke-dashoffset: 0; }
+  100% { opacity: 0; stroke-dashoffset: -30; }
+}
+@keyframes ledPulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; filter: drop-shadow(0 0 5px #39ff14); }
+}
+@keyframes cornerSpin {
+  0%   { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 40; }
+}
+@keyframes particleFloat {
+  0%   { opacity: 0; transform: translateY(0) scale(1); }
+  20%  { opacity: 0.8; }
+  100% { opacity: 0; transform: translateY(-14px) scale(0.3); }
+}
   </style>
 </head>
 <body>
 
   <!-- NAV -->
   <nav>
-    <div class="logo">&lt;<span>Dev</span>Space /&gt;</div>
+    <div class="logo-pc">
+  <svg class="pc-svg" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="scanlines" x="0" y="0" width="4" height="2" patternUnits="userSpaceOnUse">
+        <rect width="4" height="1" fill="rgba(0,229,255,1)"/>
+      </pattern>
+      <radialGradient id="screenGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#00e5ff" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#041520" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle class="particle p1" cx="8" cy="10" r="0.8"/>
+    <circle class="particle p2" cx="36" cy="8" r="0.6"/>
+    <circle class="particle p3" cx="22" cy="4" r="0.7"/>
+    <g style="animation: monitorFloat 3s ease-in-out infinite;">
+      <rect class="monitor-body" x="3" y="3" width="38" height="27" rx="2.5"/>
+      <rect class="screen-bg" x="6" y="6" width="32" height="21" rx="1.5"/>
+      <rect x="6" y="6" width="32" height="21" rx="1.5" fill="url(#screenGlow)"/>
+      <rect class="screen-lines" x="6" y="6" width="32" height="21" rx="1.5"/>
+      <line class="code-line code-line-1" x1="9" y1="11" x2="27" y2="11"/>
+      <line class="code-line code-line-2" x1="9" y1="15" x2="22" y2="15"/>
+      <line class="code-line code-line-3" x1="9" y1="19" x2="18" y2="19"/>
+      <rect class="screen-cursor" x="9" y="22" width="5" height="1.8" rx="0.5"/>
+      <circle class="power-led" cx="36" cy="28" r="1"/>
+      <path class="corner-tl" d="M5 8 L5 5 L8 5" stroke-dasharray="8" stroke-dashoffset="0"/>
+      <path class="corner-br" d="M39 25 L39 28 L36 28" stroke-dasharray="8" stroke-dashoffset="0"/>
+    </g>
+    <g style="animation: monitorFloat 3s ease-in-out infinite;">
+      <rect class="stand-neck" x="19" y="30" width="6" height="5" rx="0"/>
+      <rect class="stand-base" x="13" y="35" width="18" height="3" rx="1.5"/>
+    </g>
+  </svg>
+  <div class="logo-text">
+    <span class="logo-brand">&lt;<span class="accent">Dev</span>Space /&gt;</span>
+    <span class="logo-sub">MicroCenter</span>
+  </div>
+</div>
     <ul>
       <li><a href="#accueil">Accueil</a></li>
       <li><a href="#projets">Projets</a></li>
