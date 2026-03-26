@@ -840,7 +840,58 @@
       </div>
       <div>
         <label>Téléphone</label>
-        <input type="tel" name="telephone" placeholder="+32 4XX XX XX XX" />
+        <div style="display:flex;gap:0.5rem;">
+          <select name="telephone_prefix" id="tel-prefix" style="width:auto;flex-shrink:0;min-width:130px;">
+            <option value="+32">🇧🇪 +32</option>
+            <option value="+33">🇫🇷 +33</option>
+            <option value="+49">🇩🇪 +49</option>
+            <option value="+31">🇳🇱 +31</option>
+            <option value="+352">🇱🇺 +352</option>
+            <option value="+44">🇬🇧 +44</option>
+            <option value="+39">🇮🇹 +39</option>
+            <option value="+34">🇪🇸 +34</option>
+            <option value="+351">🇵🇹 +351</option>
+            <option value="+41">🇨🇭 +41</option>
+            <option value="+43">🇦🇹 +43</option>
+            <option value="+45">🇩🇰 +45</option>
+            <option value="+46">🇸🇪 +46</option>
+            <option value="+47">🇳🇴 +47</option>
+            <option value="+358">🇫🇮 +358</option>
+            <option value="+353">🇮🇪 +353</option>
+            <option value="+48">🇵🇱 +48</option>
+            <option value="+420">🇨🇿 +420</option>
+            <option value="+421">🇸🇰 +421</option>
+            <option value="+36">🇭🇺 +36</option>
+            <option value="+40">🇷🇴 +40</option>
+            <option value="+359">🇧🇬 +359</option>
+            <option value="+30">🇬🇷 +30</option>
+            <option value="+385">🇭🇷 +385</option>
+            <option value="+386">🇸🇮 +386</option>
+            <option value="+370">🇱🇹 +370</option>
+            <option value="+371">🇱🇻 +371</option>
+            <option value="+372">🇪🇪 +372</option>
+            <option value="+356">🇲🇹 +356</option>
+            <option value="+357">🇨🇾 +357</option>
+            <option value="+354">🇮🇸 +354</option>
+            <option value="+382">🇲🇪 +382</option>
+            <option value="+381">🇷🇸 +381</option>
+            <option value="+387">🇧🇦 +387</option>
+            <option value="+389">🇲🇰 +389</option>
+            <option value="+355">🇦🇱 +355</option>
+            <option value="+373">🇲🇩 +373</option>
+            <option value="+380">🇺🇦 +380</option>
+            <option value="+375">🇧🇾 +375</option>
+            <option value="+7">🇷🇺 +7</option>
+            <option value="+90">🇹🇷 +90</option>
+          </select>
+          <input type="tel" name="telephone_number" id="tel-number" placeholder="470 21 50 50"
+            style="flex:1;"
+            pattern="[0-9\s]{6,15}"
+            title="Chiffres uniquement (6 à 15 chiffres)"
+            oninput="this.value=this.value.replace(/[^0-9\s]/g,'')"
+          />
+        </div>
+        <span id="tel-error" style="color:#ff6b35;font-size:0.75rem;margin-top:0.3rem;display:none;">Veuillez entrer uniquement des chiffres.</span>
       </div>
       <div>
         <label>Service souhaité</label>
@@ -874,7 +925,43 @@
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Telephone: block non-numeric input + combine prefix+number before submit
+  const telNumber = document.getElementById('tel-number');
+  const telError  = document.getElementById('tel-error');
+
+  if (telNumber) {
+    telNumber.addEventListener('input', () => {
+      telNumber.value = telNumber.value.replace(/[^0-9\s]/g, '');
+      telError.style.display = 'none';
+    });
+  }
+
+  const contactForm = document.querySelector('#contact form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      const prefix = document.getElementById('tel-prefix').value;
+      const number = telNumber.value.trim();
+
+      if (number && !/^[0-9\s]{6,15}$/.test(number)) {
+        e.preventDefault();
+        telError.style.display = 'block';
+        telNumber.focus();
+        return;
+      }
+
+      // Inject a hidden field with the full phone number for Formspree
+      let hidden = document.getElementById('tel-hidden');
+      if (!hidden) {
+        hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.id   = 'tel-hidden';
+        hidden.name = 'telephone';
+        contactForm.appendChild(hidden);
+      }
+      hidden.value = number ? prefix + ' ' + number : '';
+    });
+  }
+
   // Intersection observer for fade-in on scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(el => {
-   
