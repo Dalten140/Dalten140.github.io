@@ -803,7 +803,7 @@
           <div class="contact-item-icon">📧</div>
           <div>
             <div class="contact-item-label">Email</div>
-            <div class="contact-item-val">info@microcenter.be</div>
+            <div class="contact-item-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="127b7c747d527f7b71607d71777c6677603c7077">[email&#160;protected]</a></div>
           </div>
         </div>
         <div class="contact-item">
@@ -823,28 +823,28 @@
       </div>
     </div>
 
-    <form onsubmit="handleSubmit(event)">
+    <form action="https://formspree.io/f/maqlyzbr" method="POST">
       <div class="form-row">
         <div>
           <label>Prénom</label>
-          <input type="text" placeholder="Jean" required />
+          <input type="text" name="prenom" placeholder="Jean" required />
         </div>
         <div>
           <label>Nom</label>
-          <input type="text" placeholder="Dupont" required />
+          <input type="text" name="nom" placeholder="Dupont" required />
         </div>
       </div>
       <div>
         <label>Email</label>
-        <input type="email" placeholder="jean.dupont@email.com" required />
+        <input type="email" name="email" placeholder="jean.dupont@email.com" required />
       </div>
       <div>
         <label>Téléphone</label>
-        <input type="tel" placeholder="+32 4XX XX XX XX" />
+        <input type="tel" name="telephone" placeholder="+32 4XX XX XX XX" />
       </div>
       <div>
         <label>Service souhaité</label>
-        <select>
+        <select name="service">
           <option value="">— Sélectionnez —</option>
           <option>Réparation informatique</option>
           <option>Dépannage à domicile</option>
@@ -854,7 +854,7 @@
       </div>
       <div>
         <label>Décrivez votre problème</label>
-        <textarea placeholder="Mon ordinateur ne démarre plus depuis ce matin…"></textarea>
+        <textarea name="message" placeholder="Mon ordinateur ne démarre plus depuis ce matin…"></textarea>
       </div>
       <button type="submit" class="form-submit">Envoyer ma demande →</button>
     </form>
@@ -873,27 +873,8 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('.form-submit');
-    btn.textContent = '✓ Message envoyé !';
-    btn.style.background = '#1db954';
-    setTimeout(() => {
-      btn.textContent = 'Envoyer ma demande →';
-      btn.style.background = '';
-      e.target.reset();
-    }, 3000);
-  }
-
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Intersection observer for fade-in on scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(el => {
-      if (el.isIntersecting) {
-        el.target.style.opacity = '1';
-        el.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.service-card, .step, .testi-
+   
