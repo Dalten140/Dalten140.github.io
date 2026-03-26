@@ -19,7 +19,7 @@
       --border: rgba(0,212,255,0.15);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: auto; } /* géré entièrement par JS pour compatibilité PC/Windows */
 
     body {
       background: var(--bg);
@@ -175,6 +175,9 @@
       font-size: 0.95rem;
       transition: transform 0.2s, box-shadow 0.2s;
       box-shadow: 0 0 30px rgba(0,212,255,0.3);
+      cursor: pointer;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
     }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(0,212,255,0.5); }
 
@@ -186,6 +189,9 @@
       text-decoration: none;
       font-size: 0.95rem;
       transition: border-color 0.2s, color 0.2s;
+      cursor: pointer;
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
     }
     .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
@@ -323,6 +329,16 @@
 
     /* ── SERVICES ── */
     #services { background: var(--surface); }
+
+    /* Flash highlight animation on scroll target */
+    .section-highlight {
+      animation: sectionFlash 1s ease forwards;
+    }
+    @keyframes sectionFlash {
+      0%   { box-shadow: inset 0 0 0px rgba(0,212,255,0); }
+      30%  { box-shadow: inset 0 0 60px rgba(0,212,255,0.08); }
+      100% { box-shadow: inset 0 0 0px rgba(0,212,255,0); }
+    }
 
     .services-header {
       max-width: 500px;
@@ -592,6 +608,16 @@
       50% { opacity: 0.3; }
     }
 
+    /* ── Scroll ripple animation ── */
+    @keyframes scrollRipple {
+      0%   { box-shadow: 0 0 0 0 rgba(0,212,255,0.35), inset 0 0 0 rgba(0,212,255,0); }
+      40%  { box-shadow: 0 0 0 18px rgba(0,212,255,0), inset 0 0 80px rgba(0,212,255,0.07); }
+      100% { box-shadow: 0 0 0 0 rgba(0,212,255,0), inset 0 0 0 rgba(0,212,255,0); }
+    }
+    .scroll-flash {
+      animation: scrollRipple 1.1s ease forwards;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav { padding: 1rem 2rem; }
@@ -632,8 +658,9 @@
       Je me déplace chez vous pour résoudre tous vos problèmes numériques.
     </p>
     <div class="hero-btns">
-      <a href="#contact" class="btn-primary">Prendre rendez-vous</a>
-      <a href="#services" class="btn-ghost">Voir mes services</a>
+      <!-- Les boutons utilisent maintenant data-target pour le scroll animé -->
+      <button class="btn-primary scroll-btn" data-target="#contact">Prendre rendez-vous</button>
+      <button class="btn-ghost scroll-btn" data-target="#services">Voir mes services</button>
     </div>
   </div>
   <div class="hero-visual">
@@ -900,7 +927,7 @@
           <option>Réparation informatique</option>
           <option>Dépannage à domicile</option>
           <option>Maintenance informatique</option>
-		  <option>Devis</option>
+          <option>Devis</option>
           <option>Autre / Je ne sais pas</option>
         </select>
       </div>
@@ -925,8 +952,55 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Telephone: block non-numeric input + combine prefix+number before submit
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script>
+  /* ── SMOOTH SCROLL WITH FLASH EFFECT (compatible PC Windows / tous navigateurs) ── */
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function smoothScrollTo(targetY, duration, onDone) {
+    const startY = window.scrollY;
+    const diff   = targetY - startY;
+    let startTime = null;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const elapsed  = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, startY + diff * easeInOutCubic(progress));
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        if (onDone) onDone();
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function flashSection(target) {
+    target.classList.remove('scroll-flash');
+    void target.offsetWidth; // force reflow
+    target.classList.add('scroll-flash');
+    target.addEventListener('animationend', () => {
+      target.classList.remove('scroll-flash');
+    }, { once: true });
+  }
+
+  document.querySelectorAll('.scroll-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const targetSelector = this.dataset.target;
+      const target = document.querySelector(targetSelector);
+      if (!target) return;
+
+      const navHeight = document.querySelector('nav').offsetHeight;
+      const targetTop = target.getBoundingClientRect().top + window.scrollY - navHeight;
+
+      smoothScrollTo(targetTop, 800, () => flashSection(target));
+    });
+  });
+
+  /* ── TELEPHONE VALIDATION ── */
   const telNumber = document.getElementById('tel-number');
   const telError  = document.getElementById('tel-error');
 
@@ -950,7 +1024,6 @@
         return;
       }
 
-      // Inject a hidden field with the full phone number for Formspree
       let hidden = document.getElementById('tel-hidden');
       if (!hidden) {
         hidden = document.createElement('input');
@@ -963,6 +1036,22 @@
     });
   }
 
-  // Intersection observer for fade-in on scroll
+  /* ── INTERSECTION OBSERVER (fade-in on scroll) ── */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.style.opacity = '1';
+        el.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .step, .testi-card, .contact-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
