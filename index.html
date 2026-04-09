@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Microcenter — Consultant Informatique à Domicile</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <script>
+    function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+    function scrollToTop() {
+      var startY = window.scrollY;
+      var startTime = null;
+      var duration = 1600;
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        var progress = Math.min((timestamp - startTime) / duration, 1);
+        window.scrollTo(0, startY * (1 - easeOutExpo(progress)));
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -639,7 +654,7 @@
 
 <!-- NAV -->
 <nav>
-  <div class="logo">Micro<span>center</span></div>
+  <button onclick="scrollToTop()" class="logo" style="background:none;border:none;cursor:pointer;padding:0;" title="Retour en haut">Micro<span>center</span></button>
   <ul>
     <li><a href="#services">Services</a></li>
     <li><a href="#process">Comment ça marche</a></li>
@@ -830,7 +845,7 @@
           <div class="contact-item-icon">📧</div>
           <div>
             <div class="contact-item-label">Email</div>
-            <div class="contact-item-val"><a href="mailto:info@microcenter.be" style="color:inherit;text-decoration:none;">info@microcenter.be</a></div>
+            <div class="contact-item-val"><a href="/cdn-cgi/l/email-protection#ef86818980af82868c9d808c8a819b8a9dc18d8a" style="color:inherit;text-decoration:none;"><span class="__cf_email__" data-cfemail="bdd4d3dbd2fdd0d4decfd2ded8d3c9d8cf93dfd8">[email&#160;protected]</span></a></div>
           </div>
         </div>
         <div class="contact-item">
@@ -952,14 +967,20 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script>
   /* ── SMOOTH SCROLL WITH FLASH EFFECT (compatible PC Windows / tous navigateurs) ── */
   function easeInOutCubic(t) {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   }
 
-  function smoothScrollTo(targetY, duration, onDone) {
+  /* Décélération progressive vers le haut */
+  function easeOutExpo(t) {
+    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+  }
+
+  function smoothScrollTo(targetY, duration, onDone, easeFn) {
+    const ease = easeFn || easeInOutCubic;
     const startY = window.scrollY;
     const diff   = targetY - startY;
     let startTime = null;
@@ -968,7 +989,7 @@
       if (!startTime) startTime = timestamp;
       const elapsed  = timestamp - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      window.scrollTo(0, startY + diff * easeInOutCubic(progress));
+      window.scrollTo(0, startY + diff * ease(progress));
       if (progress < 1) {
         requestAnimationFrame(step);
       } else {
@@ -976,6 +997,10 @@
       }
     }
     requestAnimationFrame(step);
+  }
+
+  function scrollToTop() {
+    smoothScrollTo(0, 1600, null, easeOutExpo);
   }
 
   function flashSection(target) {
@@ -1046,12 +1071,4 @@
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.service-card, .step, .testi-card, .contact-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    observer.observe(el);
-  });
-</script>
-</body>
-</html>
+  document.querySelectorAll('.service-card, .step, .testi-car
