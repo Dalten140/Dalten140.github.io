@@ -640,12 +640,12 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo" style="text-decoration:none;">Micro<span>center</span></a>
+  <a href="#" class="logo scroll-btn" data-target="body" style="text-decoration:none;">Micro<span>center</span></a>
   <ul>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#process">Comment ça marche</a></li>
-    <li><a href="#temoignages">Avis</a></li>
-    <li><a href="#contact" class="nav-cta">Me contacter</a></li>
+    <li><a href="#services" class="scroll-btn" data-target="#services">Services</a></li>
+    <li><a href="#process" class="scroll-btn" data-target="#process">Comment ça marche</a></li>
+    <li><a href="#temoignages" class="scroll-btn" data-target="#temoignages">Avis</a></li>
+    <li><a href="#contact" class="nav-cta scroll-btn" data-target="#contact">Me contacter</a></li>
   </ul>
 </nav>
 
@@ -946,8 +946,8 @@
   <div class="logo">Micro<span>center</span></div>
   <p>© 2026 Microcenter — Consultant Informatique Indépendant</p>
   <div class="footer-links">
-    <a href="#services">Services</a>
-    <a href="#contact">Contact</a>
+    <a href="#services" class="scroll-btn" data-target="#services">Services</a>
+    <a href="#contact" class="scroll-btn" data-target="#contact">Contact</a>
     <a href="#">Mentions légales</a>
     <a href="#">Politique de confidentialité</a>
   </div>
@@ -989,8 +989,16 @@
   }
 
   document.querySelectorAll('.scroll-btn').forEach(btn => {
-    btn.addEventListener('click', function () {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
       const targetSelector = this.dataset.target;
+
+      /* Cas spécial : retour en haut de page */
+      if (targetSelector === 'body') {
+        smoothScrollTo(0, 800);
+        return;
+      }
+
       const target = document.querySelector(targetSelector);
       if (!target) return;
 
