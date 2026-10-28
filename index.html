@@ -1,930 +1,334 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Microcenter — Consultant Informatique à Domicile</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microcenter — Consultant informatique à domicile</title>
+<meta name="description" content="Réparation, dépannage et maintenance informatique à domicile pour particuliers et professionnels, province de Namur et alentours.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232fd3f0'/%3E%3Cpath d='M9 22V10l7 8 7-8v12' fill='none' stroke='%230b1220' stroke-width='3' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b1220;--s1:#121b2e;--s2:#182339;--line:rgba(255,255,255,.09);
+  --text:#eaf0fa;--mute:#98a6bd;--accent:#2fd3f0;--warm:#ff8a4c;
+  --display:'Bricolage Grotesque',system-ui,sans-serif;
+  --body:'Figtree',system-ui,sans-serif;
+}
+html{scroll-padding-top:5rem}
+body{background:var(--bg);color:var(--text);font:400 1.0625rem/1.65 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 clamp(1.25rem,4vw,2.5rem)}
+svg.i{width:1.25rem;height:1.25rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+h1,h2,h3{font-family:var(--display);line-height:1.1;letter-spacing:-.025em}
+h2{font-size:clamp(1.9rem,3.6vw,2.8rem);font-weight:800}
+.lead{color:var(--mute);max-width:46ch;margin-top:1rem}
 
-    :root {
-      --bg: #0b0f1a;
-      --surface: #121827;
-      --card: #1a2235;
-      --accent: #00d4ff;
-      --accent2: #ff6b35;
-      --text: #e8eaf0;
-      --muted: #8892a4;
-      --border: rgba(0,212,255,0.15);
-    }
+/* nav */
+header{position:sticky;top:0;z-index:50;background:rgba(11,18,32,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:4.25rem}
+.logo{font:800 1.35rem var(--display);letter-spacing:-.03em;text-decoration:none}
+.logo span{color:var(--accent)}
+nav{display:flex;align-items:center;gap:2rem}
+nav a{text-decoration:none;color:var(--mute);font-size:.95rem;font-weight:500;transition:color .2s}
+nav a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:.55rem;border-radius:999px;padding:.8rem 1.5rem;font:600 .98rem var(--body);text-decoration:none;cursor:pointer;border:1px solid transparent;transition:background .2s,border-color .2s}
+.btn-main{background:var(--accent);color:#06222a}
+.btn-main:hover{background:#6fe3f6}
+.btn-line{border-color:var(--line);color:var(--text);background:transparent}
+.btn-line:hover{border-color:var(--accent)}
+nav .btn{padding:.55rem 1.1rem;color:#06222a}
+nav .btn:hover{color:#06222a}
 
-    html { scroll-behavior: auto; } /* géré entièrement par JS pour compatibilité PC/Windows */
+/* hero */
+.hero{position:relative;padding:clamp(3rem,8vw,6.5rem) 0 3rem;overflow:hidden}
+.hero::before{content:"";position:absolute;width:720px;height:720px;right:-220px;top:-260px;background:radial-gradient(circle,rgba(47,211,240,.16),transparent 65%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,6vw,5rem);align-items:center}
+.badge{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--line);background:var(--s1);border-radius:999px;padding:.4rem 1rem;font-size:.9rem;color:var(--mute);margin-bottom:1.75rem}
+.badge::before{content:"";width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 4px rgba(74,222,128,.18)}
+h1{font-size:clamp(2.7rem,6vw,4.8rem);font-weight:800;letter-spacing:-.04em;line-height:1.02}
+.hero .lead{font-size:1.15rem;max-width:44ch;margin-top:1.5rem}
+.hero-btns{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.25rem}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      overflow-x: hidden;
-    }
+/* ticket (moment animé unique) */
+.ticket{background:var(--s1);border:1px solid var(--line);border-radius:26px;padding:1.6rem;box-shadow:0 40px 90px -40px rgba(47,211,240,.35)}
+.t-head{display:flex;justify-content:space-between;gap:1rem;font-size:.85rem;color:var(--mute);padding-bottom:1rem;border-bottom:1px dashed var(--line)}
+.t-issue{font:700 1.35rem/1.25 var(--display);margin:1.2rem 0 .8rem}
+.t-steps{list-style:none}
+.t-steps li{display:flex;align-items:center;gap:.85rem;padding:.6rem 0;color:var(--mute);animation:lit .4s var(--d) forwards}
+.dot{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;color:transparent;font-size:.72rem;font-weight:700;animation:fill .4s var(--d) forwards}
+.t-done{margin-top:1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--bg);border-radius:16px;padding:.9rem 1.1rem;font-weight:600;opacity:0;animation:show .5s 3.5s forwards}
+.t-done small{color:var(--warm);font-weight:600;font-size:.9rem}
+@keyframes lit{to{color:var(--text)}}
+@keyframes fill{to{background:var(--accent);border-color:var(--accent);color:#06222a}}
+@keyframes show{to{opacity:1}}
 
-    /* ── NOISE TEXTURE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-    }
+/* chiffres */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);margin-top:clamp(2.5rem,6vw,4.5rem);border:1px solid var(--line);border-radius:22px;background:var(--s1)}
+.facts div{padding:1.4rem 1.75rem}
+.facts div+div{border-left:1px solid var(--line)}
+.facts b{display:block;font:800 1.9rem/1.1 var(--display);letter-spacing:-.03em}
+.facts span{color:var(--mute);font-size:.95rem}
 
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 4rem;
-      background: rgba(11,15,26,0.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
+/* sections */
+section{padding:clamp(4rem,9vw,7rem) 0}
+.alt{background:var(--s1)}
+.sec-head{margin-bottom:3rem}
 
-    .logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.4rem;
-      letter-spacing: -0.03em;
-      color: var(--text);
-      cursor: pointer;
-    }
-    .logo span { color: var(--accent); }
+/* services */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.card{background:var(--s2);border:1px solid var(--line);border-radius:22px;padding:2rem}
+.tile{width:3rem;height:3rem;border-radius:14px;display:grid;place-items:center;background:rgba(47,211,240,.12);color:var(--accent);margin-bottom:1.5rem}
+.tile svg{width:1.4rem;height:1.4rem}
+.card h3{font-size:1.3rem;font-weight:700;margin-bottom:.6rem}
+.card p{color:var(--mute);font-size:.98rem}
+.card ul{list-style:none;margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--line);display:grid;gap:.45rem;font-size:.95rem}
+.card li{display:flex;gap:.6rem}
+.card li::before{content:"✓";color:var(--accent);font-weight:700}
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2.5rem;
-    }
-    nav a {
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 0.88rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    nav a:hover { color: var(--accent); }
+/* process */
+.steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.steps li{position:relative}
+.steps li:not(:last-child)::after{content:"";position:absolute;top:19px;left:54px;right:calc(-2rem + 14px);height:1px;background:var(--line)}
+.n{width:38px;height:38px;border-radius:50%;background:var(--accent);color:#06222a;display:grid;place-items:center;font:800 1rem var(--display);margin-bottom:1.25rem}
+.steps h3{font-size:1.15rem;font-weight:700;margin-bottom:.4rem}
+.steps p{color:var(--mute);font-size:.95rem}
 
-    .nav-cta {
-      background: var(--accent);
-      color: var(--bg) !important;
-      padding: 0.55rem 1.4rem;
-      border-radius: 2px;
-      font-weight: 500;
-      transition: background 0.2s !important;
-    }
-    .nav-cta:hover { background: #00b8d9 !important; }
+/* avis */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+blockquote{background:var(--s2);border:1px solid var(--line);border-radius:22px;padding:2rem;display:flex;flex-direction:column;gap:1.25rem}
+.stars{color:var(--warm);letter-spacing:.15em;font-size:.95rem}
+blockquote p{flex:1}
+cite{font-style:normal;display:flex;align-items:center;gap:.75rem;font-weight:600;font-size:.95rem}
+cite small{display:block;color:var(--mute);font-weight:400;font-size:.85rem}
+.av{width:42px;height:42px;border-radius:50%;background:var(--bg);border:1px solid var(--line);display:grid;place-items:center;font-size:.85rem;color:var(--accent)}
 
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 8rem 4rem 4rem;
-      position: relative;
-      overflow: hidden;
-    }
+/* contact */
+.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,6vw,5rem);align-items:start}
+.infos{list-style:none;display:grid;gap:.9rem;margin-top:2rem}
+.infos li{display:flex;gap:1rem;align-items:center;background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:1rem 1.2rem}
+.infos .tile{margin:0;width:2.6rem;height:2.6rem;border-radius:12px}
+.infos small{display:block;color:var(--mute);font-size:.85rem;line-height:1.3}
+.infos a{text-decoration:none}
+.infos span{font-weight:500}
+form{background:var(--s1);border:1px solid var(--line);border-radius:26px;padding:clamp(1.5rem,3vw,2.25rem);display:grid;gap:1.1rem}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+label{display:block;font-size:.9rem;font-weight:500;margin-bottom:.4rem}
+input,select,textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:.8rem 1rem;color:var(--text);font:400 1rem var(--body);transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(47,211,240,.18)}
+textarea{min-height:130px;resize:vertical}
+select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%2398a6bd' stroke-width='2'%3E%3Cpath d='m1 1 5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem}
+.tel{display:flex;gap:.5rem}
+.tel select{width:6.5rem;flex-shrink:0}
+#tel-error{display:none;color:var(--warm);font-size:.85rem;margin-top:.35rem}
+form .btn{justify-content:center;padding:1rem}
 
-    /* animated grid bg */
-    .hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse 80% 80% at 70% 50%, black, transparent);
-      z-index: 0;
-    }
+footer{border-top:1px solid var(--line);padding:2.5rem 0;color:var(--mute);font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+footer .links{display:flex;flex-wrap:wrap;gap:1.5rem}
+footer .links a{text-decoration:none}
+footer .links a:hover{color:var(--text)}
 
-    .hero-content { position: relative; z-index: 1; }
+@keyframes scrollRipple{
+  0%{box-shadow:inset 0 0 0 rgba(47,211,240,0)}
+  40%{box-shadow:inset 0 0 90px rgba(47,211,240,.09)}
+  100%{box-shadow:inset 0 0 0 rgba(47,211,240,0)}
+}
+.scroll-flash{animation:scrollRipple 1.1s ease forwards}
 
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      border: 1px solid var(--border);
-      padding: 0.4rem 1rem;
-      border-radius: 100px;
-      font-size: 0.78rem;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-      animation: fadeUp 0.8s ease both;
-    }
-    .hero-badge::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      animation: pulse 2s infinite;
-    }
-
-    h1 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(2.8rem, 5vw, 4.5rem);
-      line-height: 1.05;
-      letter-spacing: -0.04em;
-      animation: fadeUp 0.8s 0.1s ease both;
-    }
-    h1 em {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    .hero-sub {
-      margin-top: 1.5rem;
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 480px;
-      line-height: 1.7;
-      animation: fadeUp 0.8s 0.2s ease both;
-    }
-
-    .hero-btns {
-      margin-top: 2.5rem;
-      display: flex;
-      gap: 1rem;
-      animation: fadeUp 0.8s 0.3s ease both;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: var(--bg);
-      padding: 0.85rem 2rem;
-      border-radius: 2px;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 0 30px rgba(0,212,255,0.3);
-      cursor: pointer;
-      border: none;
-      font-family: 'DM Sans', sans-serif;
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(0,212,255,0.5); }
-
-    .btn-ghost {
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.85rem 2rem;
-      border-radius: 2px;
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: border-color 0.2s, color 0.2s;
-      cursor: pointer;
-      background: transparent;
-      font-family: 'DM Sans', sans-serif;
-    }
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-
-    /* hero visual */
-    .hero-visual {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      animation: fadeIn 1.2s 0.4s ease both;
-    }
-
-    .circuit-box {
-      width: 360px;
-      height: 360px;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      position: relative;
-      background: var(--surface);
-      overflow: hidden;
-    }
-    .circuit-box::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(0,212,255,0.12), transparent 60%),
-        radial-gradient(circle at 70% 70%, rgba(255,107,53,0.08), transparent 60%);
-    }
-
-    .icon-grid {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      grid-template-rows: repeat(3,1fr);
-      gap: 0;
-      padding: 2rem;
-    }
-    .icon-cell {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      opacity: 0;
-      animation: iconAppear 0.5s ease forwards;
-    }
-    .icon-cell:nth-child(1) { animation-delay: 0.6s; }
-    .icon-cell:nth-child(2) { animation-delay: 0.8s; }
-    .icon-cell:nth-child(3) { animation-delay: 1.0s; }
-    .icon-cell:nth-child(4) { animation-delay: 1.2s; }
-    .icon-cell:nth-child(5) { animation-delay: 1.4s; font-size: 3rem; opacity: 0; }
-    .icon-cell:nth-child(6) { animation-delay: 1.6s; }
-    .icon-cell:nth-child(7) { animation-delay: 1.8s; }
-    .icon-cell:nth-child(8) { animation-delay: 2.0s; }
-    .icon-cell:nth-child(9) { animation-delay: 2.2s; }
-
-    .scan-line {
-      position: absolute;
-      left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      animation: scan 3s linear infinite;
-      top: 0;
-    }
-
-    .circuit-label {
-      position: absolute;
-      bottom: 1.5rem;
-      left: 0; right: 0;
-      text-align: center;
-      font-family: 'Syne', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      opacity: 0.7;
-    }
-
-    /* ── STATS ── */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 1px;
-      background: var(--border);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      position: relative;
-      z-index: 1;
-    }
-    .stat {
-      background: var(--bg);
-      padding: 2.5rem 3rem;
-      text-align: center;
-    }
-    .stat-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 3rem;
-      font-weight: 800;
-      color: var(--accent);
-      line-height: 1;
-    }
-    .stat-label {
-      margin-top: 0.5rem;
-      font-size: 0.85rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
-
-    /* ── SECTIONS ── */
-    section { padding: 6rem 4rem; position: relative; z-index: 1; }
-
-    .section-tag {
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-
-    h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-    }
-    h2 em {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      font-weight: 400;
-      color: var(--accent);
-    }
-
-    /* ── SERVICES ── */
-    #services { background: var(--surface); }
-
-    /* Flash highlight animation on scroll target */
-    .section-highlight {
-      animation: sectionFlash 1s ease forwards;
-    }
-    @keyframes sectionFlash {
-      0%   { box-shadow: inset 0 0 0px rgba(0,212,255,0); }
-      30%  { box-shadow: inset 0 0 60px rgba(0,212,255,0.08); }
-      100% { box-shadow: inset 0 0 0px rgba(0,212,255,0); }
-    }
-
-    .services-header {
-      max-width: 500px;
-      margin-bottom: 4rem;
-    }
-    .services-header p {
-      margin-top: 1rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 1.5rem;
-    }
-
-    .service-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 2.5rem;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s, border-color 0.3s;
-      cursor: default;
-    }
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s ease;
-    }
-    .service-card:hover { transform: translateY(-4px); border-color: rgba(0,212,255,0.4); }
-    .service-card:hover::before { transform: scaleX(1); }
-
-    .service-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-    }
-    .service-card h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-    }
-    .service-card p { color: var(--muted); line-height: 1.7; font-size: 0.92rem; }
-
-    .service-detail {
-      margin-top: 1.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-    }
-    .service-detail li {
-      list-style: none;
-      padding: 0.3rem 0;
-      font-size: 0.85rem;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .service-detail li::before { content: '→'; color: var(--accent); font-size: 0.8rem; }
-
-    /* ── PROCESS ── */
-    #process { background: var(--bg); }
-
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-      gap: 2rem;
-      margin-top: 4rem;
-    }
-
-    .step {
-      position: relative;
-      padding: 2rem;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      background: var(--surface);
-    }
-    .step::after {
-      content: '→';
-      position: absolute;
-      right: -1.5rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--accent);
-      font-size: 1.2rem;
-      z-index: 2;
-    }
-    .step:last-child::after { display: none; }
-
-    .step-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 3rem;
-      font-weight: 800;
-      color: rgba(0,212,255,0.1);
-      line-height: 1;
-      margin-bottom: 1rem;
-    }
-    .step h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    .step p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
-
-    /* ── TESTIMONIALS ── */
-    #temoignages { background: var(--surface); }
-
-    .testi-grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 1.5rem;
-      margin-top: 4rem;
-    }
-
-    .testi-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 2rem;
-    }
-    .stars { color: var(--accent); font-size: 0.9rem; margin-bottom: 1rem; }
-    .testi-text { font-size: 0.92rem; line-height: 1.7; color: var(--muted); font-style: italic; }
-    .testi-author { margin-top: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
-    .avatar {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 0.85rem; color: var(--bg);
-    }
-    .author-info { font-size: 0.85rem; }
-    .author-name { font-weight: 500; color: var(--text); }
-    .author-loc { color: var(--muted); font-size: 0.78rem; }
-
-    /* ── CONTACT ── */
-    #contact { background: var(--bg); }
-
-    .contact-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-      margin-top: 4rem;
-    }
-
-    .contact-info h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.03em;
-    }
-
-    .contact-items { display: flex; flex-direction: column; gap: 1.5rem; }
-    .contact-item {
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-      border: 1px solid var(--border);
-      padding: 1.25rem;
-      border-radius: 4px;
-      background: var(--surface);
-      transition: border-color 0.2s;
-    }
-    .contact-item:hover { border-color: rgba(0,212,255,0.4); }
-    .contact-item-icon { font-size: 1.4rem; flex-shrink: 0; }
-    .contact-item-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
-    .contact-item-val { font-size: 0.95rem; color: var(--text); margin-top: 0.2rem; font-weight: 500; }
-
-    /* form */
-    form { display: flex; flex-direction: column; gap: 1rem; }
-
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-
-    label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      display: block;
-      margin-bottom: 0.4rem;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      padding: 0.85rem 1rem;
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.92rem;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      outline: none;
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(0,212,255,0.1);
-    }
-    textarea { resize: vertical; min-height: 120px; }
-    select { appearance: none; cursor: pointer; }
-    select option { background: var(--card); }
-
-    .form-submit {
-      background: var(--accent);
-      color: var(--bg);
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 2px;
-      font-family: 'Syne', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 0 30px rgba(0,212,255,0.3);
-      letter-spacing: 0.02em;
-    }
-    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(0,212,255,0.5); }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 3rem 4rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-    footer p { font-size: 0.82rem; color: var(--muted); }
-    footer .logo { font-size: 1.1rem; }
-
-    .footer-links { display: flex; gap: 2rem; }
-    .footer-links a { text-decoration: none; color: var(--muted); font-size: 0.82rem; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--accent); }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes iconAppear {
-      from { opacity: 0; transform: scale(0.5); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    @keyframes scan {
-      from { top: 0; }
-      to { top: 100%; }
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    /* ── Scroll ripple animation ── */
-    @keyframes scrollRipple {
-      0%   { box-shadow: 0 0 0 0 rgba(0,212,255,0.35), inset 0 0 0 rgba(0,212,255,0); }
-      40%  { box-shadow: 0 0 0 18px rgba(0,212,255,0), inset 0 0 80px rgba(0,212,255,0.07); }
-      100% { box-shadow: 0 0 0 0 rgba(0,212,255,0), inset 0 0 0 rgba(0,212,255,0); }
-    }
-    .scroll-flash {
-      animation: scrollRipple 1.1s ease forwards;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 1rem 2rem; }
-      nav ul { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 7rem 2rem 3rem; }
-      .hero-visual { display: none; }
-      .stats { grid-template-columns: 1fr; }
-      section { padding: 4rem 2rem; }
-      .services-grid, .process-grid, .testi-grid { grid-template-columns: 1fr; }
-      .step::after { display: none; }
-      .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
-      .form-row { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
-      .footer-links { flex-wrap: wrap; justify-content: center; }
-    }
-  </style>
+@media(max-width:900px){
+  nav a:not(.btn){display:none}
+  .hero .wrap,.contact{grid-template-columns:1fr}
+  .cards,.quotes{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr;row-gap:2.5rem}
+  .steps li::after{display:none}
+}
+@media(max-width:560px){
+  .facts{grid-template-columns:1fr}
+  .facts div+div{border-left:0;border-top:1px solid var(--line)}
+  .steps,.row{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation-duration:.01ms!important;animation-delay:0s!important}
+}
+</style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="logo scroll-btn" data-target="body" style="text-decoration:none;">Micro<span>center</span></a>
-  <ul>
-    <li><a href="#services" class="scroll-btn" data-target="#services">Services</a></li>
-    <li><a href="#process" class="scroll-btn" data-target="#process">Comment ça marche</a></li>
-    <li><a href="#temoignages" class="scroll-btn" data-target="#temoignages">Avis</a></li>
-    <li><a href="#contact" class="nav-cta scroll-btn" data-target="#contact">Me contacter</a></li>
-  </ul>
-</nav>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="zap" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+</svg>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <div class="hero-badge">✦ Disponible 6j/7 — Intervention rapide</div>
-    <h1>Votre expert <em>informatique</em> à domicile</h1>
-    <p class="hero-sub">
-      Réparation, dépannage et maintenance informatique pour particuliers et professionnels. 
-      Je me déplace chez vous pour résoudre tous vos problèmes numériques.
-    </p>
-    <div class="hero-btns">
-      <!-- Les boutons utilisent maintenant data-target pour le scroll animé -->
-      <button class="btn-primary scroll-btn" data-target="#contact">Prendre rendez-vous</button>
-      <button class="btn-ghost scroll-btn" data-target="#services">Voir mes services</button>
-    </div>
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top">Micro<span>center</span></a>
+    <nav aria-label="Navigation principale">
+      <a href="#services">Services</a>
+      <a href="#process">Comment ça marche</a>
+      <a href="#avis">Avis</a>
+      <a class="btn btn-main" href="tel:+32497204460"><svg class="i"><use href="#phone"/></svg>Appeler</a>
+    </nav>
   </div>
-  <div class="hero-visual">
-    <div class="circuit-box">
-      <div class="scan-line"></div>
-      <div class="icon-grid">
-        <div class="icon-cell">🖥️</div>
-        <div class="icon-cell">🔧</div>
-        <div class="icon-cell">📡</div>
-        <div class="icon-cell">💾</div>
-        <div class="icon-cell">⚡</div>
-        <div class="icon-cell">🛡️</div>
-        <div class="icon-cell">🖨️</div>
-        <div class="icon-cell">📱</div>
-        <div class="icon-cell">🔌</div>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="badge">Disponible 6j/7, intervention rapide</div>
+      <h1>Votre informaticien vient chez vous.</h1>
+      <p class="lead">Réparation, dépannage et maintenance pour particuliers et professionnels. Je me déplace, je trouve la panne et je la règle sur place.</p>
+      <div class="hero-btns">
+        <a class="btn btn-main" href="#contact">Prendre rendez-vous</a>
+        <a class="btn btn-line" href="#services">Voir mes services</a>
       </div>
-      <div class="circuit-label">Diagnostic en temps réel</div>
+    </div>
+
+    <div class="ticket" aria-label="Exemple d'une intervention à domicile">
+      <div class="t-head"><span>Exemple d'intervention</span><span>Chez le client</span></div>
+      <div class="t-issue">Le PC portable ne démarre plus</div>
+      <ul class="t-steps">
+        <li style="--d:.6s"><span class="dot">✓</span>Appel reçu, créneau fixé</li>
+        <li style="--d:1.4s"><span class="dot">✓</span>Diagnostic sur place</li>
+        <li style="--d:2.2s"><span class="dot">✓</span>Disque remplacé</li>
+        <li style="--d:3s"><span class="dot">✓</span>Données récupérées, PC relancé</li>
+      </ul>
+      <div class="t-done"><span>Problème résolu</span><small>Le jour même</small></div>
     </div>
   </div>
-</section>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="stat">
-    <div class="stat-num">+500</div>
-    <div class="stat-label">Clients satisfaits</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">48h</div>
-    <div class="stat-label">Délai d'intervention moyen</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">98%</div>
-    <div class="stat-label">Taux de résolution</div>
+  <div class="wrap">
+    <div class="facts" style="width:100%">
+      <div><b>+500</b><span>clients satisfaits</span></div>
+      <div><b>48 h</b><span>délai d'intervention moyen</span></div>
+      <div><b>98 %</b><span>de pannes résolues</span></div>
+    </div>
   </div>
 </div>
 
-<!-- SERVICES -->
-<section id="services">
-  <div class="services-header">
-    <div class="section-tag">◆ Ce que je propose</div>
-    <h2>Mes <em>services</em></h2>
-    <p>Des solutions adaptées à chaque problème informatique, avec un service personnalisé directement chez vous.</p>
-  </div>
-  <div class="services-grid">
-    <div class="service-card">
-      <div class="service-icon">🔧</div>
-      <h3>Réparation informatique</h3>
-      <p>Panne de démarrage, écran cassé, clavier défaillant, composants endommagés — je diagnostique et répare.</p>
-      <ul class="service-detail">
-        <li>Remplacement de composants</li>
-        <li>Réparation matérielle (hardware)</li>
-        <li>Récupération de données</li>
-        <li>Changement d'écran / batterie</li>
-      </ul>
+<section id="services" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Trois façons de vous dépanner</h2>
+      <p class="lead">Un service personnalisé, directement chez vous, sans devoir porter votre machine en magasin.</p>
     </div>
-    <div class="service-card">
-      <div class="service-icon">🚑</div>
-      <h3>Dépannage à domicile</h3>
-      <p>Votre PC rame, ne démarre plus, est infecté par un virus ? Intervention rapide à votre domicile.</p>
-      <ul class="service-detail">
-        <li>Suppression virus & malwares</li>
-        <li>Optimisation & accélération PC</li>
-        <li>Problèmes réseau & Wi-Fi</li>
-        <li>Installation logiciels & OS</li>
-      </ul>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🛠️</div>
-      <h3>Maintenance informatique</h3>
-      <p>Un suivi régulier pour garder votre matériel en parfait état de fonctionnement et éviter les pannes.</p>
-      <ul class="service-detail">
-        <li>Nettoyage & mise à jour système</li>
-        <li>Sauvegarde des données</li>
-        <li>Contrats de maintenance</li>
-        <li>Conseils & accompagnement</li>
-      </ul>
+    <div class="cards">
+      <article class="card">
+        <div class="tile"><svg class="i"><use href="#wrench"/></svg></div>
+        <h3>Réparation informatique</h3>
+        <p>Panne de démarrage, écran cassé, clavier défaillant, composants endommagés : je diagnostique et je répare.</p>
+        <ul>
+          <li>Remplacement de composants</li>
+          <li>Réparation matérielle</li>
+          <li>Récupération de données</li>
+          <li>Changement d'écran ou de batterie</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="tile"><svg class="i"><use href="#zap"/></svg></div>
+        <h3>Dépannage à domicile</h3>
+        <p>Votre PC rame, ne démarre plus ou est infecté ? J'interviens rapidement à votre domicile.</p>
+        <ul>
+          <li>Suppression de virus et malwares</li>
+          <li>Optimisation et accélération du PC</li>
+          <li>Problèmes de réseau et de Wi-Fi</li>
+          <li>Installation de logiciels et de système</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="tile"><svg class="i"><use href="#shield"/></svg></div>
+        <h3>Maintenance informatique</h3>
+        <p>Un suivi régulier pour garder votre matériel en bon état et éviter les pannes.</p>
+        <ul>
+          <li>Nettoyage et mises à jour</li>
+          <li>Sauvegarde des données</li>
+          <li>Contrats de maintenance</li>
+          <li>Conseils et accompagnement</li>
+        </ul>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- PROCESS -->
 <section id="process">
-  <div class="section-tag">◆ Déroulement</div>
-  <h2>Comment ça <em>marche</em> ?</h2>
-  <div class="process-grid">
-    <div class="step">
-      <div class="step-num">01</div>
-      <h3>Prise de contact</h3>
-      <p>Décrivez votre problème par téléphone ou via le formulaire. Estimation gratuite.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <h3>Prise de rendez-vous</h3>
-      <p>On fixe ensemble un créneau d'intervention à votre convenance, rapidement.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <h3>Intervention</h3>
-      <p>Je me déplace chez vous, diagnostique et résout le problème sous vos yeux.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">04</div>
-      <h3>Suivi</h3>
-      <p>Un suivi post-intervention pour m'assurer que tout fonctionne parfaitement.</p>
+  <div class="wrap">
+    <div class="sec-head"><h2>Comment ça se passe</h2></div>
+    <ol class="steps">
+      <li><div class="n">1</div><h3>Prise de contact</h3><p>Décrivez votre problème par téléphone ou via le formulaire. Estimation gratuite.</p></li>
+      <li><div class="n">2</div><h3>Rendez-vous</h3><p>On fixe ensemble un créneau à votre convenance, rapidement.</p></li>
+      <li><div class="n">3</div><h3>Intervention</h3><p>Je me déplace chez vous, je diagnostique et je résous le problème sous vos yeux.</p></li>
+      <li><div class="n">4</div><h3>Suivi</h3><p>Je reprends contact après l'intervention pour vérifier que tout fonctionne.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="avis" class="alt">
+  <div class="wrap">
+    <div class="sec-head"><h2>Ils m'ont fait confiance</h2></div>
+    <div class="quotes">
+      <blockquote>
+        <div class="stars" aria-label="5 étoiles sur 5">★★★★★</div>
+        <p>Mon ordinateur refusait de démarrer depuis 3 jours. Intervention le lendemain même, problème résolu en 1h. Très professionnel et pédagogue !</p>
+        <cite><span class="av">ML</span><span>Marie-Laure D.<small>Particulier, Hainaut</small></span></cite>
+      </blockquote>
+      <blockquote>
+        <div class="stars" aria-label="5 étoiles sur 5">★★★★★</div>
+        <p>Virus sur mon PC professionnel : données récupérées, système nettoyé. Tarifs très corrects et service impeccable. Je recommande vivement.</p>
+        <cite><span class="av">JP</span><span>Jean-Pierre V.<small>TPE, Namur</small></span></cite>
+      </blockquote>
+      <blockquote>
+        <div class="stars" aria-label="5 étoiles sur 5">★★★★★</div>
+        <p>Contrat de maintenance mensuel depuis 1 an. Zéro panne surprise, tout est toujours à jour. Un vrai partenaire informatique de confiance.</p>
+        <cite><span class="av">SC</span><span>Sophie C.<small>PME, Namur</small></span></cite>
+      </blockquote>
     </div>
   </div>
 </section>
 
-<!-- TÉMOIGNAGES -->
-<section id="temoignages">
-  <div class="section-tag">◆ Ce qu'ils disent</div>
-  <h2>Avis <em>clients</em></h2>
-  <div class="testi-grid">
-    <div class="testi-card">
-      <div class="stars">★★★★★</div>
-      <p class="testi-text">Mon ordinateur refusait de démarrer depuis 3 jours. Intervention le lendemain même, problème résolu en 1h. Très professionnel et pédagogue !</p>
-      <div class="testi-author">
-        <div class="avatar">ML</div>
-        <div class="author-info">
-          <div class="author-name">Marie-Laure D.</div>
-          <div class="author-loc">Particulier — Hainaut</div>
-        </div>
-      </div>
-    </div>
-    <div class="testi-card">
-      <div class="stars">★★★★★</div>
-      <p class="testi-text">Virus sur mon PC professionnel — données récupérées, système nettoyé. Tarifs très corrects et service impeccable. Je recommande vivement.</p>
-      <div class="testi-author">
-        <div class="avatar">JP</div>
-        <div class="author-info">
-          <div class="author-name">Jean-Pierre V.</div>
-          <div class="author-loc">TPE — Namur</div>
-        </div>
-      </div>
-    </div>
-    <div class="testi-card">
-      <div class="stars">★★★★★</div>
-      <p class="testi-text">Contrat de maintenance mensuel depuis 1 an. Zéro panne surprise, tout est toujours à jour. Un vrai partenaire informatique de confiance.</p>
-      <div class="testi-author">
-        <div class="avatar">SC</div>
-        <div class="author-info">
-          <div class="author-name">Sophie C.</div>
-          <div class="author-loc">PME — Namur</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
 <section id="contact">
-  <div class="section-tag">◆ Parlons-en</div>
-  <h2>Prendre <em>rendez-vous</em></h2>
-  <div class="contact-layout">
-    <div class="contact-info">
-      <h3>Je suis disponible pour vous aider</h3>
-      <div class="contact-items">
-        <div class="contact-item">
-          <div class="contact-item-icon">📞</div>
-          <div>
-            <div class="contact-item-label">Téléphone</div>
-            <div class="contact-item-val">+32 497 20 44 60</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">📧</div>
-          <div>
-            <div class="contact-item-label">Email</div>
-            <div class="contact-item-val"><a href="mailto:info@microcenter.be" style="color:inherit;text-decoration:none;">info@microcenter.be</a></div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">📍</div>
-          <div>
-            <div class="contact-item-label">Zone d'intervention</div>
-            <div class="contact-item-val">Province de Namur & alentours</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">🕐</div>
-          <div>
-            <div class="contact-item-label">Disponibilité</div>
-            <div class="contact-item-val">Lun–Sam : 9h–19h · Dim sur demande</div>
-          </div>
-        </div>
-      </div>
+  <div class="wrap contact">
+    <div>
+      <h2>Prenons rendez-vous</h2>
+      <p class="lead">Décrivez votre problème, je vous réponds avec une estimation gratuite.</p>
+      <ul class="infos">
+        <li><div class="tile"><svg class="i"><use href="#phone"/></svg></div><div><small>Téléphone</small><a href="tel:+32497204460"><span>+32 497 20 44 60</span></a></div></li>
+        <li><div class="tile"><svg class="i"><use href="#mail"/></svg></div><div><small>Email</small><a href="mailto:info@microcenter.be"><span>info@microcenter.be</span></a></div></li>
+        <li><div class="tile"><svg class="i"><use href="#pin"/></svg></div><div><small>Zone d'intervention</small><span>Province de Namur et alentours</span></div></li>
+        <li><div class="tile"><svg class="i"><use href="#clock"/></svg></div><div><small>Disponibilité</small><span>Lun–Sam 9h–19h, dimanche sur demande</span></div></li>
+      </ul>
     </div>
 
     <form action="https://formspree.io/f/maqlyzbr" method="POST">
-      <div class="form-row">
-        <div>
-          <label>Prénom</label>
-          <input type="text" name="prenom" placeholder="Jean" required />
-        </div>
-        <div>
-          <label>Nom</label>
-          <input type="text" name="nom" placeholder="Dupont" required />
-        </div>
+      <div class="row">
+        <div><label for="prenom">Prénom</label><input id="prenom" type="text" name="prenom" placeholder="Jean" autocomplete="given-name" required></div>
+        <div><label for="nom">Nom</label><input id="nom" type="text" name="nom" placeholder="Dupont" autocomplete="family-name" required></div>
       </div>
+      <div><label for="email">Email</label><input id="email" type="email" name="email" placeholder="jean.dupont@email.com" autocomplete="email" required></div>
       <div>
-        <label>Email</label>
-        <input type="email" name="email" placeholder="jean.dupont@email.com" required />
-      </div>
-      <div>
-        <label>Téléphone</label>
-        <div style="display:flex;gap:0.5rem;">
-          <select name="telephone_prefix" id="tel-prefix" style="width:auto;flex-shrink:0;min-width:130px;">
-            <option value="+32">🇧🇪 +32</option>
-            <option value="+33">🇫🇷 +33</option>
-            <option value="+49">🇩🇪 +49</option>
-            <option value="+31">🇳🇱 +31</option>
-            <option value="+352">🇱🇺 +352</option>
-            <option value="+44">🇬🇧 +44</option>
-            <option value="+39">🇮🇹 +39</option>
-            <option value="+34">🇪🇸 +34</option>
-            <option value="+351">🇵🇹 +351</option>
-            <option value="+41">🇨🇭 +41</option>
-            <option value="+43">🇦🇹 +43</option>
-            <option value="+45">🇩🇰 +45</option>
-            <option value="+46">🇸🇪 +46</option>
-            <option value="+47">🇳🇴 +47</option>
-            <option value="+358">🇫🇮 +358</option>
-            <option value="+353">🇮🇪 +353</option>
-            <option value="+48">🇵🇱 +48</option>
-            <option value="+420">🇨🇿 +420</option>
-            <option value="+421">🇸🇰 +421</option>
-            <option value="+36">🇭🇺 +36</option>
-            <option value="+40">🇷🇴 +40</option>
-            <option value="+359">🇧🇬 +359</option>
-            <option value="+30">🇬🇷 +30</option>
-            <option value="+385">🇭🇷 +385</option>
-            <option value="+386">🇸🇮 +386</option>
-            <option value="+370">🇱🇹 +370</option>
-            <option value="+371">🇱🇻 +371</option>
-            <option value="+372">🇪🇪 +372</option>
-            <option value="+356">🇲🇹 +356</option>
-            <option value="+357">🇨🇾 +357</option>
-            <option value="+354">🇮🇸 +354</option>
-            <option value="+382">🇲🇪 +382</option>
-            <option value="+381">🇷🇸 +381</option>
-            <option value="+387">🇧🇦 +387</option>
-            <option value="+389">🇲🇰 +389</option>
-            <option value="+355">🇦🇱 +355</option>
-            <option value="+373">🇲🇩 +373</option>
-            <option value="+380">🇺🇦 +380</option>
-            <option value="+375">🇧🇾 +375</option>
-            <option value="+7">🇷🇺 +7</option>
-            <option value="+90">🇹🇷 +90</option>
+        <label for="tel-number">Téléphone</label>
+        <div class="tel">
+          <select id="tel-prefix" aria-label="Indicatif">
+            <option value="+32">BE +32</option><option value="+33">FR +33</option><option value="+352">LU +352</option>
+            <option value="+31">NL +31</option><option value="+49">DE +49</option><option value="+41">CH +41</option><option value="+44">GB +44</option>
           </select>
-          <input type="tel" name="telephone_number" id="tel-number" placeholder="470 21 50 50"
-            style="flex:1;"
-            pattern="[0-9\s]{6,15}"
-            title="Chiffres uniquement (6 à 15 chiffres)"
-            oninput="this.value=this.value.replace(/[^0-9\s]/g,'')"
-          />
+          <input id="tel-number" type="tel" inputmode="numeric" placeholder="470 21 50 50" autocomplete="tel-national">
         </div>
-        <span id="tel-error" style="color:#ff6b35;font-size:0.75rem;margin-top:0.3rem;display:none;">Veuillez entrer uniquement des chiffres.</span>
+        <span id="tel-error">Entrez uniquement des chiffres (6 à 15).</span>
       </div>
       <div>
-        <label>Service souhaité</label>
-        <select name="service">
-          <option value="">— Sélectionnez —</option>
+        <label for="service">Service souhaité</label>
+        <select id="service" name="service">
+          <option value="">Sélectionnez</option>
           <option>Réparation informatique</option>
           <option>Dépannage à domicile</option>
           <option>Maintenance informatique</option>
@@ -932,135 +336,61 @@
           <option>Autre / Je ne sais pas</option>
         </select>
       </div>
-      <div>
-        <label>Décrivez votre problème</label>
-        <textarea name="message" placeholder="Mon ordinateur ne démarre plus depuis ce matin…"></textarea>
-      </div>
-      <button type="submit" class="form-submit">Envoyer ma demande →</button>
+      <div><label for="message">Décrivez votre problème</label><textarea id="message" name="message" placeholder="Mon ordinateur ne démarre plus depuis ce matin…"></textarea></div>
+      <button type="submit" class="btn btn-main">Envoyer ma demande</button>
     </form>
   </div>
 </section>
+</main>
 
-<!-- FOOTER -->
 <footer>
-  <div class="logo">Micro<span>center</span></div>
-  <p>© 2026 Microcenter — Consultant Informatique Indépendant</p>
-  <div class="footer-links">
-    <a href="#services" class="scroll-btn" data-target="#services">Services</a>
-    <a href="#contact" class="scroll-btn" data-target="#contact">Contact</a>
-    <a href="#">Mentions légales</a>
-    <a href="#">Politique de confidentialité</a>
+  <div class="wrap">
+    <a class="logo" href="#top">Micro<span>center</span></a>
+    <span>© 2026 Microcenter, consultant informatique indépendant</span>
+    <div class="links"><a href="#services">Services</a><a href="#contact">Contact</a><a href="#">Mentions légales</a><a href="#">Confidentialité</a></div>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script>
-  /* ── SMOOTH SCROLL WITH FLASH EFFECT (compatible PC Windows / tous navigateurs) ── */
-  function easeInOutCubic(t) {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  }
-
-  function smoothScrollTo(targetY, duration, onDone) {
-    const startY = window.scrollY;
-    const diff   = targetY - startY;
-    let startTime = null;
-
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const elapsed  = timestamp - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      window.scrollTo(0, startY + diff * easeInOutCubic(progress));
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      } else {
-        if (onDone) onDone();
-      }
+(function(){
+  /* Défilement animé (easing) + halo sur la section atteinte */
+  function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+  function scrollToY(y,dur,done){
+    var start=window.scrollY,diff=y-start,t0=null;
+    if(!diff){if(done)done();return}
+    function step(ts){
+      if(!t0)t0=ts;
+      var p=Math.min((ts-t0)/dur,1);
+      window.scrollTo(0,start+diff*ease(p));
+      if(p<1)requestAnimationFrame(step);else if(done)done();
     }
     requestAnimationFrame(step);
   }
-
-  function flashSection(target) {
-    target.classList.remove('scroll-flash');
-    void target.offsetWidth; // force reflow
-    target.classList.add('scroll-flash');
-    target.addEventListener('animationend', () => {
-      target.classList.remove('scroll-flash');
-    }, { once: true });
+  function flash(el){
+    el.classList.remove('scroll-flash');void el.offsetWidth;el.classList.add('scroll-flash');
+    el.addEventListener('animationend',function(){el.classList.remove('scroll-flash')},{once:true});
   }
-
-  document.querySelectorAll('.scroll-btn').forEach(btn => {
-    btn.addEventListener('click', function (e) {
+  document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var id=a.getAttribute('href');
       e.preventDefault();
-      const targetSelector = this.dataset.target;
-
-      /* Cas spécial : retour en haut de page */
-      if (targetSelector === 'body') {
-        smoothScrollTo(0, 800);
-        return;
-      }
-
-      const target = document.querySelector(targetSelector);
-      if (!target) return;
-
-      const navHeight = document.querySelector('nav').offsetHeight;
-      const targetTop = target.getBoundingClientRect().top + window.scrollY - navHeight;
-
-      smoothScrollTo(targetTop, 800, () => flashSection(target));
+      if(id==='#top'){scrollToY(0,1400);return}
+      var t=document.querySelector(id);if(!t)return;
+      var y=t.getBoundingClientRect().top+window.scrollY-document.querySelector('header').offsetHeight;
+      scrollToY(y,1400,function(){flash(t)});
     });
   });
 
-  /* ── TELEPHONE VALIDATION ── */
-  const telNumber = document.getElementById('tel-number');
-  const telError  = document.getElementById('tel-error');
-
-  if (telNumber) {
-    telNumber.addEventListener('input', () => {
-      telNumber.value = telNumber.value.replace(/[^0-9\s]/g, '');
-      telError.style.display = 'none';
-    });
-  }
-
-  const contactForm = document.querySelector('#contact form');
-  if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-      const prefix = document.getElementById('tel-prefix').value;
-      const number = telNumber.value.trim();
-
-      if (number && !/^[0-9\s]{6,15}$/.test(number)) {
-        e.preventDefault();
-        telError.style.display = 'block';
-        telNumber.focus();
-        return;
-      }
-
-      let hidden = document.getElementById('tel-hidden');
-      if (!hidden) {
-        hidden = document.createElement('input');
-        hidden.type = 'hidden';
-        hidden.id   = 'tel-hidden';
-        hidden.name = 'telephone';
-        contactForm.appendChild(hidden);
-      }
-      hidden.value = number ? prefix + ' ' + number : '';
-    });
-  }
-
-  /* ── INTERSECTION OBSERVER (fade-in on scroll) ── */
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(el => {
-      if (el.isIntersecting) {
-        el.target.style.opacity = '1';
-        el.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.service-card, .step, .testi-card, .contact-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    observer.observe(el);
+  var form=document.querySelector('#contact form'),num=document.getElementById('tel-number'),err=document.getElementById('tel-error');
+  num.addEventListener('input',function(){num.value=num.value.replace(/[^0-9\s]/g,'');err.style.display='none'});
+  form.addEventListener('submit',function(e){
+    var v=num.value.trim();
+    if(v&&!/^[0-9\s]{6,15}$/.test(v)){e.preventDefault();err.style.display='block';num.focus();return}
+    var h=document.getElementById('tel-hidden');
+    if(!h){h=document.createElement('input');h.type='hidden';h.id='tel-hidden';h.name='telephone';form.appendChild(h)}
+    h.value=v?document.getElementById('tel-prefix').value+' '+v:'';
   });
+})();
 </script>
 </body>
 </html>
